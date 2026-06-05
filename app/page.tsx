@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 type Category = {
@@ -34,18 +35,20 @@ export default async function Home() {
         ) : (
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {categories.map((category: Category) => (
-              <li
-                key={category.id}
-                className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm transition-all duration-200 hover:border-amber-100 hover:bg-amber-50/60 hover:shadow-md"
-              >
-                <h2 className="text-xl font-bold text-stone-900 sm:text-2xl">
-                  {category.name}
-                </h2>
-                {category.description && (
-                  <p className="mt-3 leading-relaxed text-stone-600">
-                    {category.description}
-                  </p>
-                )}
+              <li key={category.id}>
+                <Link
+                  href={"/category/" + category.slug}
+                  className="block rounded-2xl border border-stone-100 bg-white p-6 shadow-sm transition-all duration-200 hover:border-amber-100 hover:bg-amber-50/60 hover:shadow-md"
+                >
+                  <h2 className="text-xl font-bold text-stone-900 sm:text-2xl">
+                    {category.name}
+                  </h2>
+                  {category.description && (
+                    <p className="mt-3 leading-relaxed text-stone-600">
+                      {category.description}
+                    </p>
+                  )}
+                </Link>
               </li>
             ))}
           </ul>
