@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase";
 
 type Recipe = {
   id: string;
-  name: string;
+  title: string;
   description: string | null;
   duration_minutes: number | null;
   difficulty: string | null;
@@ -42,9 +42,9 @@ export default async function CategoryPage({
 
   const { data: recipes, error: recipesError } = await supabase
     .from("recipes")
-    .select("id, name, description, duration_minutes, difficulty")
+    .select("id, title, description, duration_minutes, difficulty")
     .eq("category_id", category.id)
-    .order("name");
+    .order("title");
 
   return (
     <div className="min-h-full bg-white">
@@ -83,7 +83,7 @@ export default async function CategoryPage({
                 className="rounded-2xl border border-stone-100 bg-white p-6 shadow-sm transition-all duration-200 hover:border-amber-100 hover:bg-amber-50/60 hover:shadow-md"
               >
                 <h2 className="text-xl font-bold text-stone-900">
-                  {recipe.name}
+                  {recipe.title}
                 </h2>
                 {recipe.description && (
                   <p className="mt-3 leading-relaxed text-stone-600">
